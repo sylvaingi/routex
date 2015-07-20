@@ -2,7 +2,8 @@ import ExecutionEnvironment from 'react/lib/ExecutionEnvironment';
 import jsdom from 'mocha-jsdom';
 import { expect } from 'chai';
 import { createStore, compose, combineReducers } from 'redux';
-import { createRoutex, MemoryHistory, actions } from '../../src';
+import { createRoutex, actions } from '../../src';
+import { createMemoryHistory } from 'history';
 import React, { Component, addons } from 'react/addons';
 import { Provider } from 'react-redux';
 import { View } from '../../src/react';
@@ -13,7 +14,7 @@ describe('View', () => {
     // let utils, React, Provider, Component, View;
 
     function createRoutexStore(routes, initialState, onTransition) {
-        const routex = createRoutex(routes, new MemoryHistory('/', {}), onTransition);
+        const routex = createRoutex(routes, createMemoryHistory(), onTransition);
 
         return compose(routex.store, createStore)(combineReducers(routex.reducer), initialState);
     }
